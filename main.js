@@ -7,7 +7,7 @@ const url = 'https://raw.githubusercontent.com/Adalab/recipes-data/master/rissot
 
 let name;
 let ingredients;
-
+let currency;
 
 function fetchRecipe() {
     fetch(url)
@@ -19,7 +19,7 @@ function fetchRecipe() {
             console.log(myJson.recipe.name)
             name = myJson.recipe.name;
             ingredients = myJson.recipe.ingredients;
-
+            currency = myJson.recipe.currency;
             writeTitle();
             writeIngredients();
         });
@@ -34,12 +34,21 @@ function writeTitle() {
 }
 
 function writeIngredients() {
-    itemsList.innerHTML = ingredients.map((ingredient, i)=>{
+    itemsList.innerHTML = ingredients.map((ingredient, i) => {
         return `
         <li>
             <input type="checkbox" data-index=${i} id="item${i}" />
-            <label for="item${i}">${ingredient.product}</label>
+            <span>1</span>
+            <div>
+                <label for="item${i}">${ingredient.product}</label>
+                <p>${ingredient.brand}</p>
+                <p>${ingredient.quantity}</p>
+            </div>
+            <div class="ingredient__prices">
+                <p>${ingredient.price}</p>
+                <p>${currency}</p>
+            </div>
         </li>
         `;
-    })
+    }).join('');
 }
