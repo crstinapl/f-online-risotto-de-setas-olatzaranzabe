@@ -43,9 +43,9 @@ function writeTitle() {
 function writeIngredients() {
     itemsList.innerHTML = ingredients.map((ingredient, i) => {
         return `
-        <li>
-            <input type="checkbox" data-index=${i} id="item${i}" />
-            <span>1</span>
+        <li class="inbox">
+            <input type="checkbox" data-index=${i} id="item${i}" name="box" />
+            <input type="number" min="0" value="${ingredient.items}" />
             <div>
                 <label for="item${i}">${ingredient.product}</label>
                 <p>${ingredient.brand}</p>
@@ -60,11 +60,29 @@ function writeIngredients() {
     }).join('');
 }
 
-function selectAll() {
+function selectAll(e) {
     console.log('todo selecionado')
+    const checkboxes = document.getElementsByName('box');
+    // for (var i = 0, n = checkboxes.length; i < n; i++) {
+    //     checkboxes[i].checked = e.checked;
+    // }
+    // if (e.checked) {
+    for (var i = 0; i < checkboxes.length; i++) {
+        checkboxes[i].checked = true;
+    }
+    // } else {
+    //     for (var i = 0; i < checkboxes.length; i++) {
+    //         checkboxes[i].checked = false;
+    //     }
+    // }
 }
+
 function noSelectAll() {
     console.log('nada selecionado')
+    const checkboxes = document.getElementsByName('box');
+    for (var i = 0; i < checkboxes.length; i++) {
+        checkboxes[i].checked = false;
+    }
 }
 
 function payment() {
