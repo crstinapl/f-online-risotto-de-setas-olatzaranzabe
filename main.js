@@ -6,6 +6,7 @@ const title = document.querySelector('.title');
 const url = 'https://raw.githubusercontent.com/Adalab/recipes-data/master/rissoto-setas.json';
 const selectButton = document.querySelector('.select__button');
 const noSelectButton = document.querySelector('.noselect__button');
+const subtotal = document.querySelector('.pay__subtotal');
 const shippingCost = document.querySelector('.pay__shipment');
 
 let name;
@@ -63,18 +64,9 @@ function writeIngredients() {
 function selectAll(e) {
     console.log('todo selecionado')
     const checkboxes = document.getElementsByName('box');
-    // for (var i = 0, n = checkboxes.length; i < n; i++) {
-    //     checkboxes[i].checked = e.checked;
-    // }
-    // if (e.checked) {
     for (var i = 0; i < checkboxes.length; i++) {
         checkboxes[i].checked = true;
     }
-    // } else {
-    //     for (var i = 0; i < checkboxes.length; i++) {
-    //         checkboxes[i].checked = false;
-    //     }
-    // }
 }
 
 function noSelectAll() {
@@ -86,7 +78,10 @@ function noSelectAll() {
 }
 
 function payment() {
-    shippingCost.innerHTML = shipping;
+    const totalPrice = 
+    subtotal.innerHTML = `Subtotal: ${totalPrice}`;
+    shippingCost.innerHTML =`Gastos de envio: ${shipping}`;
+
 }
 
 selectButton.addEventListener('click', selectAll);
