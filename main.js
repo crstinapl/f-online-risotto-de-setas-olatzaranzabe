@@ -28,6 +28,7 @@ function fetchRecipe() {
             shipping = myJson.recipe['shipping-cost'];
             writeTitle();
             writeIngredients();
+            selectCheckbox();
             totalPayment();
         });
 }
@@ -42,7 +43,7 @@ function writeIngredients() {
     itemsList.innerHTML = ingredients.map((ingredient, i) => {
         return `
         <li class="inbox">
-            <input class="checkbox__input" type="checkbox" data-index=${i} id="item${i}" name="box" />
+            <input class="checkbox__input" type="checkbox" id="item${i}" name="box" value=${ingredient.price.toFixed(2)} />
             <input type="number" min="0" value="${ingredient.items}" />
             <div>
                 <label for="item${i}">${ingredient.product}</label>
@@ -66,7 +67,6 @@ function selectCheckbox() {
 }
 
 function selectAll() {
-    console.log('todo selecionado')
     const checkboxes = document.getElementsByName('box');
     for (var i = 0; i < checkboxes.length; i++) {
         checkboxes[i].checked = true;
@@ -74,14 +74,16 @@ function selectAll() {
 }
 
 function noSelectAll() {
-    console.log('nada selecionado')
     const checkboxes = document.getElementsByName('box');
     for (var i = 0; i < checkboxes.length; i++) {
         checkboxes[i].checked = false;
     }
 }
 
-function totalPayment() {
+function totalPayment(e) {
+    console.log(e.target)
+    const money = e.target.value;
+    console.log(money)
     // const totalPrice = 
     // subtotal.innerHTML = `Subtotal: ${totalPrice}`;
     shippingCost.innerHTML ='Gastos de envio: ' + parseFloat(shipping).toFixed(2) + currency;
