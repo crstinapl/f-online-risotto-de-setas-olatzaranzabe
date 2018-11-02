@@ -9,6 +9,7 @@ const noSelectButton = document.querySelector('.noselect__button');
 const subtotal = document.querySelector('.pay__subtotal');
 const shippingCost = document.querySelector('.pay__shipment');
 const totalCost = document.querySelector('.pay__quantity');
+const buyButton = document.querySelector('.buy__button');
 
 let name;
 let ingredients;
@@ -64,7 +65,7 @@ function writeIngredients() {
 
 function selectCheckbox() {
     let checkboxesList = document.querySelectorAll('.checkbox__input');
-    checkboxesList.forEach((checkboxes)=>{
+    checkboxesList.forEach((checkboxes) => {
         return checkboxes.addEventListener('click', totalPayment);
     })
 }
@@ -73,28 +74,39 @@ function selectAll() {
     const checkboxes = document.getElementsByName('box');
     for (var i = 0; i < checkboxes.length; i++) {
         checkboxes[i].checked = true;
+        totalPrice += parseFloat(checkboxes[i].defaultValue);
+        shippingPrice = parseFloat(shipping);
+        subtotal.innerHTML = `Subtotal: ${totalPrice}`;
+        shippingCost.innerHTML = 'Gastos de envio: ' + parseFloat(shipping).toFixed(2) + currency;
+        totalCost.innerHTML = 'Total: ' + (totalPrice + shippingPrice) + currency;
+        buyButton.innerHTML = 'Comprar ingredientes: ' + (totalPrice + shippingPrice) + currency;
+
     }
+
 }
 
 function noSelectAll() {
     const checkboxes = document.getElementsByName('box');
     for (var i = 0; i < checkboxes.length; i++) {
         checkboxes[i].checked = false;
+        totalPrice = 0;
+        shippingPrice = 0;
+        subtotal.innerHTML = `Subtotal: ${totalPrice}`;
+        shippingCost.innerHTML = 'Gastos de envio: ' + 0 + currency;
+        totalCost.innerHTML = 'Total: ' + (totalPrice + shippingPrice) + currency;
+        buyButton.innerHTML = 'Comprar ingredientes: ' + (totalPrice + shippingPrice) + currency;
+
     }
 }
 
 function totalPayment(e) {
-    console.log(e.target)
     const money = e.target.value;
-    console.log(money)
     totalPrice += parseFloat(money);
-    console.log(totalPrice)
     shippingPrice = parseFloat(shipping);
-    console.log(totalPrice + shippingPrice)
     subtotal.innerHTML = `Subtotal: ${totalPrice}`;
-    shippingCost.innerHTML ='Gastos de envio: ' + parseFloat(shipping).toFixed(2) + currency;
-    totalCost.innerHTML = 'Total: ' + (totalPrice + shippingPrice) + currency
-    console.log(shipping)
+    shippingCost.innerHTML = 'Gastos de envio: ' + parseFloat(shipping).toFixed(2) + currency;
+    totalCost.innerHTML = 'Total: ' + (totalPrice + shippingPrice) + currency;
+    buyButton.innerHTML = 'Comprar ingredientes: ' + (totalPrice + shippingPrice) + currency;
 }
 
 selectButton.addEventListener('click', selectAll);
