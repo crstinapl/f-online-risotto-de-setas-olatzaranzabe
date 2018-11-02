@@ -8,11 +8,13 @@ const selectButton = document.querySelector('.select__button');
 const noSelectButton = document.querySelector('.noselect__button');
 const subtotal = document.querySelector('.pay__subtotal');
 const shippingCost = document.querySelector('.pay__shipment');
+const totalCost = document.querySelector('.pay__quantity');
 
 let name;
 let ingredients;
 let currency;
 let shipping;
+let totalPrice = 0;
 
 function fetchRecipe() {
     fetch(url)
@@ -84,9 +86,11 @@ function totalPayment(e) {
     console.log(e.target)
     const money = e.target.value;
     console.log(money)
-    // const totalPrice = 
-    // subtotal.innerHTML = `Subtotal: ${totalPrice}`;
+    totalPrice += parseFloat(money);
+    console.log(totalPrice)
+    subtotal.innerHTML = `Subtotal: ${totalPrice}`;
     shippingCost.innerHTML ='Gastos de envio: ' + parseFloat(shipping).toFixed(2) + currency;
+    totalCost.innerHTML = 'Total: ' + (totalPrice) + parseFloat(shipping).toFixed(2) + currency
     console.log(shipping)
 }
 
