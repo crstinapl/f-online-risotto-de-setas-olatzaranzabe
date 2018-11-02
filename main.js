@@ -15,6 +15,7 @@ let ingredients;
 let currency;
 let shipping;
 let totalPrice = 0;
+let shippingPrice;
 
 function fetchRecipe() {
     fetch(url)
@@ -88,9 +89,11 @@ function totalPayment(e) {
     console.log(money)
     totalPrice += parseFloat(money);
     console.log(totalPrice)
+    shippingPrice = parseFloat(shipping);
+    console.log(totalPrice + shippingPrice)
     subtotal.innerHTML = `Subtotal: ${totalPrice}`;
     shippingCost.innerHTML ='Gastos de envio: ' + parseFloat(shipping).toFixed(2) + currency;
-    totalCost.innerHTML = 'Total: ' + (totalPrice) + parseFloat(shipping).toFixed(2) + currency
+    totalCost.innerHTML = 'Total: ' + (totalPrice + shippingPrice) + currency
     console.log(shipping)
 }
 
