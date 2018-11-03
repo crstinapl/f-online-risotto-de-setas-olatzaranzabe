@@ -100,34 +100,23 @@ function noSelectAll() {
     }
 }
 
-function totalPayment(e) {
-    console.log(this)
-    let checkboxes = document.querySelectorAll('.checkbox__input');
-    let checkboxQuantity = document.querySelectorAll('.checkbox__quantity');
-    console.log(checkboxQuantity)
-    for (var i = 0; i < checkboxes.length; i++) {
-        console.log(this)
-        console.log(checkboxes.length)
-        console.log(checkboxes[i])
-        console.log(checkboxes[i].checked)
-        // if (checkboxes[i].checked ) {
-            console.log('olatz')
-            const money = e.target.value;
-            totalPrice += parseFloat(money);
-            shippingPrice = parseFloat(shipping);
-            subtotal.innerHTML = `Subtotal: ${totalPrice}`;
-            shippingCost.innerHTML = 'Gastos de envio: ' + parseFloat(shipping).toFixed(2) + currency;
-            totalCost.innerHTML = 'Total: ' + (totalPrice + shippingPrice).toFixed(2) + currency;
-            buyButton.innerHTML = 'Comprar ingredientes: ' + (totalPrice + shippingPrice).toFixed(2) + currency;
-        // } else {
-        //     console.log('aranzabe')
-        //     totalPrice -= parseFloat(money);
-        //     shippingPrice = parseFloat(shipping);
-        //     subtotal.innerHTML = 'Subtotal:' +(totalPrice).toFixed(2);
-        //     shippingCost.innerHTML = 'Gastos de envio: ' + parseFloat(shipping).toFixed(2) + currency;
-        //     totalCost.innerHTML = 'Total: ' + (totalPrice + shippingPrice).toFixed(2) + currency;
-        //     buyButton.innerHTML = 'Comprar ingredientes: ' + (totalPrice + shippingPrice).toFixed(2) + currency;
-        // }
+function totalPayment() {
+    const money = this.value;  
+    if (this.checked ) {
+        totalPrice += parseFloat(money);
+        shippingPrice = parseFloat(shipping);
+        subtotal.innerHTML = `Subtotal: ${totalPrice}`;
+        shippingCost.innerHTML = 'Gastos de envio: ' + parseFloat(shipping).toFixed(2) + currency;
+        totalCost.innerHTML = 'Total: ' + (totalPrice + shippingPrice).toFixed(2) + currency;
+        buyButton.innerHTML = 'Comprar ingredientes: ' + (totalPrice + shippingPrice).toFixed(2) + currency;
+        console.log('grand total', totalPrice + shippingPrice)
+    } else if (!this.checked) {
+        totalPrice -= parseFloat(money);
+        shippingPrice = parseFloat(shipping);
+        subtotal.innerHTML = 'Subtotal:' +(totalPrice).toFixed(2);
+        shippingCost.innerHTML = 'Gastos de envio: ' + parseFloat(shipping).toFixed(2) + currency;
+        totalCost.innerHTML = 'Total: ' + (totalPrice + shippingPrice).toFixed(2) + currency;
+        buyButton.innerHTML = 'Comprar ingredientes: ' + (totalPrice + shippingPrice).toFixed(2) + currency;
     }
 }
 
