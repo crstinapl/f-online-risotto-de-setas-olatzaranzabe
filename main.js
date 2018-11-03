@@ -104,15 +104,15 @@ function totalPayment() {
     const money = this.value;  
     if (this.checked ) {
         totalPrice += parseFloat(money);
+        totalPrice >= 0 ? shippingPrice = parseFloat(shipping) : shippingPrice = 0 ;
         shippingPrice = parseFloat(shipping);
         subtotal.innerHTML = `Subtotal: ${totalPrice}`;
         shippingCost.innerHTML = 'Gastos de envio: ' + parseFloat(shipping).toFixed(2) + currency;
         totalCost.innerHTML = 'Total: ' + (totalPrice + shippingPrice).toFixed(2) + currency;
         buyButton.innerHTML = 'Comprar ingredientes: ' + (totalPrice + shippingPrice).toFixed(2) + currency;
-        console.log('grand total', totalPrice + shippingPrice)
     } else if (!this.checked) {
         totalPrice -= parseFloat(money);
-        shippingPrice = parseFloat(shipping);
+        totalPrice >= 0 ? (shippingPrice = parseFloat(shipping)) : (shippingPrice = 0 );
         subtotal.innerHTML = 'Subtotal:' +(totalPrice).toFixed(2);
         shippingCost.innerHTML = 'Gastos de envio: ' + parseFloat(shipping).toFixed(2) + currency;
         totalCost.innerHTML = 'Total: ' + (totalPrice + shippingPrice).toFixed(2) + currency;

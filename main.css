@@ -1,3 +1,8 @@
+.buttons {
+    display: flex;
+    justify-content: center;
+}
+
 .ingredients {
     text-transform: uppercase;
 }
@@ -7,4 +12,17 @@
     height: 50px;
     border: 1px solid gray;
     text-align: center;
+    margin: 15px;
+}
+
+.inbox {
+    display: flex;
+    flex-direction: row;
+    justify-items: baseline;
+    align-items: center;
+    margin: 10px;
+}
+
+.ingredient-prices {
+    display: flex;
 }
