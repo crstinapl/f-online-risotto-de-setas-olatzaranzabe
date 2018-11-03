@@ -46,10 +46,10 @@ function writeTitle() {
 function writeIngredients() {
     itemsList.innerHTML = ingredients.map((ingredient, i) => {
         return `
-        <li class="inbox">
+        <li class="inbox checbox">
             <input class="checkbox__input" type="checkbox" id="item${i}" name="box" value=${ingredient.price.toFixed(2)} />
-            <input type="number" min="0" value="${ingredient.items}" />
-            <div>
+            <input class="checkbox__quantity" type="number" min="0" value="${ingredient.items}" />
+            <div class="checkbox">
                 <label for="item${i}">${ingredient.product}</label>
                 <p>${ingredient.brand}</p>
                 <p>${ingredient.quantity}</p>
@@ -66,7 +66,11 @@ function writeIngredients() {
 function selectCheckbox() {
     let checkboxesList = document.querySelectorAll('.checkbox__input');
     checkboxesList.forEach((checkboxes) => {
-        return checkboxes.addEventListener('click', totalPayment);
+        return checkboxes.addEventListener('change', totalPayment);
+    })
+    let checkboxQuantity = document.querySelectorAll('.checkbox__quantity');
+    checkboxQuantity.forEach((quantity) => {
+        return quantity.addEventListener('change', totalPayment);
     })
 }
 
@@ -80,9 +84,7 @@ function selectAll() {
         shippingCost.innerHTML = 'Gastos de envio: ' + parseFloat(shipping).toFixed(2) + currency;
         totalCost.innerHTML = 'Total: ' + (totalPrice + shippingPrice) + currency;
         buyButton.innerHTML = 'Comprar ingredientes: ' + (totalPrice + shippingPrice) + currency;
-
     }
-
 }
 
 function noSelectAll() {
@@ -95,18 +97,38 @@ function noSelectAll() {
         shippingCost.innerHTML = 'Gastos de envio: ' + 0 + currency;
         totalCost.innerHTML = 'Total: ' + (totalPrice + shippingPrice) + currency;
         buyButton.innerHTML = 'Comprar ingredientes: ' + (totalPrice + shippingPrice) + currency;
-
     }
 }
 
 function totalPayment(e) {
-    const money = e.target.value;
-    totalPrice += parseFloat(money);
-    shippingPrice = parseFloat(shipping);
-    subtotal.innerHTML = `Subtotal: ${totalPrice}`;
-    shippingCost.innerHTML = 'Gastos de envio: ' + parseFloat(shipping).toFixed(2) + currency;
-    totalCost.innerHTML = 'Total: ' + (totalPrice + shippingPrice) + currency;
-    buyButton.innerHTML = 'Comprar ingredientes: ' + (totalPrice + shippingPrice) + currency;
+    console.log(this)
+    let checkboxes = document.querySelectorAll('.checkbox__input');
+    let checkboxQuantity = document.querySelectorAll('.checkbox__quantity');
+    console.log(checkboxQuantity)
+    for (var i = 0; i < checkboxes.length; i++) {
+        console.log(this)
+        console.log(checkboxes.length)
+        console.log(checkboxes[i])
+        console.log(checkboxes[i].checked)
+        // if (checkboxes[i].checked ) {
+            console.log('olatz')
+            const money = e.target.value;
+            totalPrice += parseFloat(money);
+            shippingPrice = parseFloat(shipping);
+            subtotal.innerHTML = `Subtotal: ${totalPrice}`;
+            shippingCost.innerHTML = 'Gastos de envio: ' + parseFloat(shipping).toFixed(2) + currency;
+            totalCost.innerHTML = 'Total: ' + (totalPrice + shippingPrice).toFixed(2) + currency;
+            buyButton.innerHTML = 'Comprar ingredientes: ' + (totalPrice + shippingPrice).toFixed(2) + currency;
+        // } else {
+        //     console.log('aranzabe')
+        //     totalPrice -= parseFloat(money);
+        //     shippingPrice = parseFloat(shipping);
+        //     subtotal.innerHTML = 'Subtotal:' +(totalPrice).toFixed(2);
+        //     shippingCost.innerHTML = 'Gastos de envio: ' + parseFloat(shipping).toFixed(2) + currency;
+        //     totalCost.innerHTML = 'Total: ' + (totalPrice + shippingPrice).toFixed(2) + currency;
+        //     buyButton.innerHTML = 'Comprar ingredientes: ' + (totalPrice + shippingPrice).toFixed(2) + currency;
+        // }
+    }
 }
 
 selectButton.addEventListener('click', selectAll);
