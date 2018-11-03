@@ -47,12 +47,14 @@ function writeIngredients() {
     itemsList.innerHTML = ingredients.map((ingredient, i) => {
         return `
         <li class="inbox checbox">
-            <input class="checkbox__input" type="checkbox" id="item${i}" name="box" value=${ingredient.price.toFixed(2)} />
-            <input class="checkbox__quantity" type="number" min="0" value="${ingredient.items}" />
-            <div class="checkbox">
-                <label for="item${i}">${ingredient.product}</label>
-                <p>${ingredient.brand}</p>
-                <p>${ingredient.quantity}</p>
+            <div class="product">
+                <input class="checkbox__input" type="checkbox" id="item${i}" name="box" value=${ingredient.price.toFixed(2)} />
+                <input class="checkbox__quantity" type="number" min="0" value="${ingredient.items}" />
+                <div class="checkbox">
+                    <label for="item${i}">${ingredient.product}</label>
+                    <p>${ingredient.brand}</p>
+                    <p>${ingredient.quantity}</p>
+                </div>
             </div>
             <div class="ingredient__prices">
                 <p>${ingredient.price}</p>
@@ -68,10 +70,10 @@ function selectCheckbox() {
     checkboxesList.forEach((checkboxes) => {
         return checkboxes.addEventListener('change', totalPayment);
     })
-    let checkboxQuantity = document.querySelectorAll('.checkbox__quantity');
-    checkboxQuantity.forEach((quantity) => {
-        return quantity.addEventListener('change', totalPayment);
-    })
+    // let checkboxQuantity = document.querySelectorAll('.checkbox__quantity');
+    // checkboxQuantity.forEach((quantity) => {
+    //     return quantity.addEventListener('change', totalPayment);
+    // })
 }
 
 function selectAll() {
@@ -101,10 +103,10 @@ function noSelectAll() {
 }
 
 function totalPayment() {
-    const money = this.value;  
-    if (this.checked ) {
+    let money = this.value;
+    if (this.checked) {
         totalPrice += parseFloat(money);
-        totalPrice >= 0 ? shippingPrice = parseFloat(shipping) : shippingPrice = 0 ;
+        totalPrice >= 0 ? shippingPrice = parseFloat(shipping) : shippingPrice = 0;
         shippingPrice = parseFloat(shipping);
         subtotal.innerHTML = `Subtotal: ${totalPrice}`;
         shippingCost.innerHTML = 'Gastos de envio: ' + parseFloat(shipping).toFixed(2) + currency;
@@ -112,8 +114,8 @@ function totalPayment() {
         buyButton.innerHTML = 'Comprar ingredientes: ' + (totalPrice + shippingPrice).toFixed(2) + currency;
     } else if (!this.checked) {
         totalPrice -= parseFloat(money);
-        totalPrice >= 0 ? (shippingPrice = parseFloat(shipping)) : (shippingPrice = 0 );
-        subtotal.innerHTML = 'Subtotal:' +(totalPrice).toFixed(2);
+        totalPrice >= 0 ? shippingPrice = parseFloat(shipping) : shippingPrice = 0;
+        subtotal.innerHTML = 'Subtotal:' + (totalPrice).toFixed(2);
         shippingCost.innerHTML = 'Gastos de envio: ' + parseFloat(shipping).toFixed(2) + currency;
         totalCost.innerHTML = 'Total: ' + (totalPrice + shippingPrice).toFixed(2) + currency;
         buyButton.innerHTML = 'Comprar ingredientes: ' + (totalPrice + shippingPrice).toFixed(2) + currency;

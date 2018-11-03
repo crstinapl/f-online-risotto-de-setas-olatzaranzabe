@@ -20,9 +20,27 @@
     flex-direction: row;
     justify-items: baseline;
     align-items: center;
+    justify-content: space-between;
     margin: 10px;
 }
 
-.ingredient-prices {
+.product {
+    align-items: center;
     display: flex;
+}
+
+.ingredient__prices {
+    display: flex;
+    flex-direction: row;
+    margin: 20px;
+}
+
+.payment {
+    margin: 30px;
+    display: flex;
+    flex-direction: column;
+}
+
+.hidden {
+    display: none;
 }
