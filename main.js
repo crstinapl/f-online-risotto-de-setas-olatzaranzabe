@@ -17,6 +17,7 @@ let currency;
 let shipping;
 let totalPrice = 0;
 let shippingPrice;
+let money = 0;
 
 function fetchRecipe() {
     fetch(url)
@@ -104,6 +105,7 @@ function noSelectAll() {
 
 function totalPayment() {
     let money = this.value;
+    console.log(money)
     if (this.checked) {
         totalPrice += parseFloat(money);
         totalPrice >= 0 ? shippingPrice = parseFloat(shipping) : shippingPrice = 0;
@@ -114,7 +116,7 @@ function totalPayment() {
         buyButton.innerHTML = 'Comprar ingredientes: ' + (totalPrice + shippingPrice).toFixed(2) + currency;
     } else if (!this.checked) {
         totalPrice -= parseFloat(money);
-        totalPrice >= 0 ? shippingPrice = parseFloat(shipping) : shippingPrice = 0;
+        totalPrice >= 0 ? shippingPrice = 0 : shippingPrice = parseFloat(shipping);
         subtotal.innerHTML = 'Subtotal:' + (totalPrice).toFixed(2);
         shippingCost.innerHTML = 'Gastos de envio: ' + parseFloat(shipping).toFixed(2) + currency;
         totalCost.innerHTML = 'Total: ' + (totalPrice + shippingPrice).toFixed(2) + currency;
